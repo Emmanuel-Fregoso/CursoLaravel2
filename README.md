@@ -7,6 +7,9 @@ git clone https://github.com/Emmanuel-Fregoso/CursoLaravel2.git
 ```bash
 composer install
 ```
+```bash
+npm install
+```
 ### Crear un archivo .env
 ```bash
 cp .env.example .env
