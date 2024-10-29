@@ -12,13 +12,19 @@ use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $post = Post::with('user')->get();
-        return response()->json($post);
+        $posts = Post::with('user', 'tags')->paginate(2);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -26,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,6 +40,8 @@ class PostController extends Controller
      */
     public function store(PostRequest $request, CreatePost $action)
     {
+        Role::create(['name' => 'admin']);
+        Permission::create(['name' => 'create post']);
         $action->execute(PostDto::fromRequest($request));
         return response()->json(['message' => 'Post created successfully']);
     }
@@ -67,6 +75,5 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
     }
 }

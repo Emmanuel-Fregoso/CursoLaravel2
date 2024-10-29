@@ -17,8 +17,8 @@ class CreatePost
             'content' => $dto->content,
         ]);
 
-        if (isset($data['tags'])) {
-            $post->tags()->sync($data['tags']);
+        if (isset($dto->tags)) {
+            $post->tags()->sync($dto->tags);
         }
 
         return $post;

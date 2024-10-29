@@ -12,6 +12,7 @@ class PostDto
     public function __construct(
         public readonly string $title,
         public readonly string $content,
+        public readonly array $tags = [],
     )
     {
 
@@ -22,6 +23,7 @@ class PostDto
         return new self(
             title: $request->validated('title'),
             content: $request->validated('content'),
+            tags: $request->validated('tags'),
         );
     }
 }
